@@ -12,6 +12,34 @@
             </predictions>
         </helpers>
     </global>
+    <frontend>
+        <events>
+            <catalog_controller_product_view>
+                <observers>
+                    <predictions>
+                        <class>predictions/observer</class>
+                        <method>addToCart</method>
+                    </predictions>
+                </observers>
+            </catalog_controller_product_view>
+            <checkout_cart_add_product_complete>
+                <observers>
+                    <predictions>
+                        <class>predictions/observer</class>
+                        <method>addToCart</method>
+                    </predictions>
+                </observers>
+            </checkout_cart_add_product_complete>
+            <sales_order_place_after>
+                <observers>
+                    <predictions>
+                        <class>predictions/observer</class>
+                        <method>createOrder</method>
+                    </predictions>
+                </observers>
+            </sales_order_place_after>
+        </events>
+    </frontend>
     <default>
         <predictions>
             <predictionio>
