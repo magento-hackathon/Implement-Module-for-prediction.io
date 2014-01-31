@@ -5,5 +5,22 @@
             <version>0.0.1</version>
         </Magehack_Predictions>
     </modules>
+    <global>
+        <helpers>
+            <predictions>
+                <class>Magehack_Predictions_Helper</class>
+            </predictions>
+        </helpers>
+    </global>
+    <default>
+        <predictions>
+            <predictionio>
+                <enabled>0</enabled>
+                <apikey></apikey>
+                <baseuri></baseuri>
+                <algorithm></algorithm>
+            </predictionio>
+        </predictions>
+    </default>
 </config>
 
