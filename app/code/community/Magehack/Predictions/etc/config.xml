@@ -11,6 +11,16 @@
                 <class>Magehack_Predictions_Helper</class>
             </predictions>
         </helpers>
+        <blocks>
+            <predictions>
+                <class>Magehack_Predictions_Block</class>
+            </predictions>
+            <catalog>
+                <rewrite>
+                    <product_list_related>Magehack_Predictions_Block_Catalog_Product_List_Related</product_list_related>
+                </rewrite>
+            </catalog>
+        </blocks>
     </global>
     <frontend>
         <events>
