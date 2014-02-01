@@ -80,7 +80,7 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
             // Grab product from the observer
             $product = $event->getProduct();
 
-            $queueRecord['product_id'] = $product->getSku();
+            $queueRecord['product_id'] = $product->getId();
 
             $this->_addEventToQueue($queueRecord, Magehack_Predictions_Model_Queue::EVENT_TYPE_VIEW);
         } catch (Exception $e) {
@@ -131,7 +131,7 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
 
             foreach($orderItems as $item)
             {
-                $queueRecord['product_id'] = $item->getSku();
+                $queueRecord['product_id'] = $item->getProductId();
                 $this->_addEventToQueue($queueRecord, Magehack_Predictions_Model_Queue::EVENT_TYPE_ORDER);
             }
 
@@ -182,7 +182,7 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
             // Grab product from the observer
             $product = $event->getProduct();
 
-            $queueRecord['product_id'] = $product->getSku();
+            $queueRecord['product_id'] = $product->getId();
 
             $this->_addEventToQueue($queueRecord, Magehack_Predictions_Model_Queue::EVENT_TYPE_ADD_TO_CART);
         } catch (Exception $e) {
