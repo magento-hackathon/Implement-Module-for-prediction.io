@@ -17,12 +17,12 @@ class Magehack_Predictions_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->isEnabled() && Mage::getStoreConfigFlag(self::XML_PATH_PREDICTIONS_GENERAL_RELATED_PRODUCTS);
     }
 
-    public function getApiKey()
+    public function getPredictionIOApiKey()
     {
         return Mage::getStoreConfig(self::XML_PATH_PREDICTIONS_PREDICTIONIO_API_KEY);
     }
 
-    public function getBaseUri()
+    public function getPredictionIOBaseUri()
     {
         return Mage::getStoreConfig(self::XML_PATH_PREDICTIONS_PREDICTIONIO_BASE_URI);
     }
