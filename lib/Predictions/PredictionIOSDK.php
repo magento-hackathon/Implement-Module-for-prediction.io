@@ -126,7 +126,7 @@ class PredictionIOSDK {
             default:
                 throw new Exception('Invalid request method');
         }
-
+        Mage::log($this->serverLocation . $path);
         $client = new Varien_Http_Client($this->serverLocation . $path);
         $client->setMethod($requestMethod);
 
