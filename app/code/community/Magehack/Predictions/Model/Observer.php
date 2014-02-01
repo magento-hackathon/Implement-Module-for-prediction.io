@@ -213,7 +213,7 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
 
         // Get a Collection of events that that have the same cookie but not the customer id
 
-        $queueCollection = Mage::getModel('precision/queue')
+        $queueCollection = Mage::getModel('predictions/queue')
             ->getCollection()
             ->addFieldToFilter('customer_id', array('null' => true))
             ->addFieldToFilter('cookie_id', array('eq' => $cookie_id));
