@@ -23,6 +23,7 @@ class Magehack_Predictions_Model_Cron
     public function run()
     {
         $queueCollection = Mage::getModel('predictions/queue')->getCollection();
+
         $recommendFor = array();
         foreach($queueCollection as $task) {
             // [todo] add this condition to the collection query
@@ -43,6 +44,12 @@ class Magehack_Predictions_Model_Cron
         }
 
         // [todo] loop through $recommendFor and create recommendations in the db
+        $predictionEngine = $this->getPredictionEngine();
+
+        foreach($recommendFor as $uid)
+        {
+            $recommendations = $predictionEngine->getRecommendations($uid);
+        }
     }
 
     protected function _processTask($task)
