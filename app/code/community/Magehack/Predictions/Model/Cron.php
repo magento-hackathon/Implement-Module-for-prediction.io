@@ -23,18 +23,26 @@ class Magehack_Predictions_Model_Cron
     public function run()
     {
         $queueCollection = Mage::getModel('predictions/queue')->getCollection();
+        $recommendFor = array();
         foreach($queueCollection as $task) {
             // [todo] add this condition to the collection query
-            //if the cookie has not been processed yet and/or there is a customer id...
-            if(!$task->getCookieProcessed() || $task->getCustomerId()) {
+            // if the cookie has not been processed yet and/or there is a customer id...
+            $customer_id = $task->getCustomerId();
+            if(!$task->getCookieProcessed() || $customer_id) {
+                $recommendFor[] = $task->getCookieId();
+                if($customer_id) {
+                    $recommendFor[] = $customer_id;
+                }
+
                 try {
                     $this->_processTask($task);
                 } catch (Exception $e) {
                     Mage::log($e->getMessage());
                 }
             }
-
         }
+
+        // [todo] loop through $recommendFor and create recommendations in the db
     }
 
     protected function _processTask($task)
@@ -44,6 +52,8 @@ class Magehack_Predictions_Model_Cron
 
 
         if(!$task->getCookieProcessed()) {
+            $predictionEngine->createItem($task->getProductId());
+            $predictionEngine->createUser($task->getCookieId());
             //if the customer id isn't set we'll need to make the update. Otherwise its getting deleted anyways.
             if(!$task->getCustomerId()) {
                 $task->setCookieProcessed(1);
@@ -54,6 +64,7 @@ class Magehack_Predictions_Model_Cron
         }
 
         if($task->getCustomerId()) {
+            $predictionEngine->createUser($task->getCustomerId());
             call_user_func(array($predictionEngine, $eventMethod), $task->getCustomerId(), $task->getProductId());
             $task->delete();
         }
