@@ -7,6 +7,7 @@ class Magehack_Predictions_Model_Adminhtml_System_Config_Source_Predictions_Engi
     {
         return array(
             Magehack_Predictions_Model_Engine::ENGINE_PREDICTIONIO => Mage::helper('predictions')->__('PredictionIO'),
+            Magehack_Predictions_Model_Engine::ENGINE_MYRRIX => Mage::helper('predictions')->__('Myrrix'),
         );
     }
 
