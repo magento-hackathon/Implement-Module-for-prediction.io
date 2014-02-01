@@ -172,7 +172,7 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
         // [todo] - Test for correct implementation
         $_queueEvent = Mage::getModel('predictions/queue');
 
-        $_queueEvent->setData($args['rows']);
+        $_queueEvent->setData($args['row']);
         $_queueEvent->setCustomerId($args['customer_id']);
         $_queueEvent->save();
     }
