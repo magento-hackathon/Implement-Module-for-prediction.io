@@ -54,8 +54,8 @@ class Magehack_Predictions_Helper_Adapters_Myrrix implements Magehack_Prediction
     /**
      * Notify Myrrix of a return.
      *
-     * @TODO: This method is never called, should add EE support.
-     * @TODO: Push this data to Myrrix
+     * [todo] This method is never called, should add EE support.
+     * [todo] Push this data to Myrrix
      *
      * @param int Magento customer id or cookie id.
      * @param int Magento product id.

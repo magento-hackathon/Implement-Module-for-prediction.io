@@ -1,6 +1,6 @@
 <?php
 /**
- * @todo add support for batch processing of training data on supported engines
+ * [todo] add support for batch processing of training data on supported engines
  */
 interface Magehack_Predictions_Helper_Adapters_Interface {
     /**
