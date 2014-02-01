@@ -65,11 +65,16 @@ class Magehack_Predictions_Helper_Data extends Mage_Core_Helper_Abstract
         return Mage::getStoreConfig(self::XML_PATH_PREDICTIONS_MYRRIX_ORDER_POINTS);
     }
 
-    public function getUniqueId() {
-        return Mage::getSingleton('core/cookie')->get('predictions_unid');
+    public function getCurrentUserUniqueId() {
+        $uniqueId = Mage::getSingleton('core/cookie')->get('predictions_unid');
+        if(!$uniqueId) {
+            $uniqueId = $this->generateUniqueId();
+            Mage::getSingleton('core/cookie')->set("predictions_unid", $uniqueId);
+        }
+        return $uniqueId;
     }
 
-    public function generateUniqueId()
+    private function generateUniqueId()
     {
         list($usec, $sec) = explode(" ", microtime());
         $uniqueCode = intval($usec * 100000) . rand(1, 1000000000);

@@ -50,9 +50,9 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
 
         $predictionHelper = Mage::helper('predictions');
 
-        $event          = $observer->getEvent();
-        $queueRecord    = array();
-        $cookie_id      = $predictionHelper->getUniqueId();
+        $event = $observer->getEvent();
+        $queueRecord = array();
+        $queueRecord['cookie_id'] = $predictionHelper->getCurrentUserUniqueId();
 
 
         try {
@@ -61,20 +61,6 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
             if (Mage::getSingleton('customer/session')->isLoggedIn()) {
                 $customerData = Mage::getSingleton('customer/session')->getCustomer();
                 $queueRecord['customer_id'] = $customerData->getId();
-            }
-
-            // If there is a cookie present
-            // [todo] - Refactor this code to be in a single function
-
-            if (isset($cookie_id)) {
-                $queueRecord['cookie_id'] = $cookie_id;
-            } else {
-                $cookie = Mage::getSingleton('core/cookie');
-                $uniqueCode = $predictionHelper->generateUniqueId();
-
-                $cookie->set("predictions_unid", $uniqueCode);
-
-                $queueRecord['cookie_id'] = $uniqueCode;
             }
 
             // Grab product from the observer
@@ -98,9 +84,9 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
 
         $predictionHelper = Mage::helper('predictions');
 
-        $event          = $observer->getEvent();
-        $queueRecord    = array();
-        $cookie_id      = $predictionHelper->getUniqueId();
+        $event = $observer->getEvent();
+        $queueRecord = array();
+        $queueRecord['cookie_id'] = $predictionHelper->getCurrentUserUniqueId();
 
         // Grab products from the observer
         try {
@@ -111,19 +97,6 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
                 $queueRecord['customer_id'] = $customerData->getId();
             }
 
-            // If there is a cookie present
-            // [todo] - Refactor this code to be in a single function
-
-            if (isset($cookie_id)) {
-                $queueRecord['cookie_id'] = $cookie_id;
-            } else {
-                $cookie = Mage::getSingleton('core/cookie');
-                $uniqueCode = $predictionHelper->generateUniqueId();
-
-                $cookie->set("predictions_unid", $uniqueCode);
-
-                $queueRecord['cookie_id'] = $uniqueCode;
-            }
 
             // Grab product list from the observer
             $order      = $event->getOrder();
@@ -151,34 +124,11 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
 
         $predictionHelper = Mage::helper('predictions');
 
-        $event          = $observer->getEvent();
-        $queueRecord    = array();
-        $cookie_id      = $predictionHelper->getUniqueId();
-
-        // Grab product from the observer
+        $event = $observer->getEvent();
+        $queueRecord = array();
+        $queueRecord['cookie_id'] = $predictionHelper->getCurrentUserUniqueId();
 
         try {
-
-            //If the customer is logged in
-            if (Mage::getSingleton('customer/session')->isLoggedIn()) {
-                $customerData = Mage::getSingleton('customer/session')->getCustomer();
-                $queueRecord['customer_id'] = $customerData->getId();
-            }
-
-            // If there is a cookie present
-            // [todo] - Refactor this code to be in a single function
-
-            if (isset($cookie_id)) {
-                $queueRecord['cookie_id'] = $cookie_id;
-            } else {
-                $cookie = Mage::getSingleton('core/cookie');
-                $uniqueCode = $predictionHelper->generateUniqueId();
-
-                $cookie->set("predictions_unid", $uniqueCode);
-
-                $queueRecord['cookie_id'] = $uniqueCode;
-            }
-
             // Grab product from the observer
             $product = $event->getProduct();
 
@@ -195,28 +145,16 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
         $predictionHelper = Mage::helper('predictions');
 
         // Get Customer from the observer
-        $customer   = $observer->getEvent()->getCustomer();
-        $cookie_id  = $predictionHelper->getUniqueId();
+        $customer = $observer->getEvent()->getCustomer();
 
-        // Check if there is cookie id, if NOT set it
-        // [todo] - Refactor this code to be in a single function
-        if (isset($cookie_id)) {
-            $queueRecord['cookie_id'] = $cookie_id;
-        } else {
-            $cookie = Mage::getSingleton('core/cookie');
-            $uniqueCode = $predictionHelper->generateUniqueId();
-
-            $cookie->set("predictions_unid", $uniqueCode);
-
-            $queueRecord['cookie_id'] = $uniqueCode;
-        }
+        // Get Unique User ID (by cookie, not Customer)
+        $queueRecord['cookie_id'] = $predictionHelper->getCurrentUserUniqueId();
 
         // Get a Collection of events that that have the same cookie but not the customer id
-
         $queueCollection = Mage::getModel('predictions/queue')
             ->getCollection()
             ->addFieldToFilter('customer_id', array('null' => true))
-            ->addFieldToFilter('cookie_id', array('eq' => $cookie_id));
+            ->addFieldToFilter('cookie_id', array('eq' => $queueRecord['cookie_id']));
 
 
         // Use an iterator for  updating the events with the customer id
@@ -239,21 +177,4 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
         $_queueEvent->save();
     }
 
-    /**
-     * Triggered on http_response_send_before
-     *
-     * @param
-     */
-    public function createUniqueId()
-    {
-        $predictionHelper = Mage::helper('predictions');
-
-        $cookie     = Mage::getSingleton('core/cookie');
-        $cookieName = "predictions_unid";
-
-        if(!$cookie->get($cookieName)) {
-            $uniqueCode = $predictionHelper->generateUniqueId();
-            $cookie->set($cookieName, $uniqueCode);
-        }
-    }
 }
