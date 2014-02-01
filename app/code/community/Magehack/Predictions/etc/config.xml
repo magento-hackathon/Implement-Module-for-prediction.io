@@ -82,6 +82,15 @@
                 <api_key></api_key>
                 <base_uri></base_uri>
             </predictionio>
+            <myrrix>
+                <username></username>
+                <password></password>
+                <base_uri></base_uri>
+                <view_points>1</view_points>
+                <addtocart_points>15</addtocart_points>
+                <addtowishlist_points>10</addtowishlist_points>
+                <order_points>100</order_points>
+            </myrrix>
         </predictions>
     </default>
 </config>
