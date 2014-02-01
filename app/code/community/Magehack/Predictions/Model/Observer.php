@@ -92,9 +92,45 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
     public function createOrder($observer)
     {
 
-        $event = $observer->getEvent();
+        $predictionHelper = Mage::helper('predictions');
+
+        $event          = $observer->getEvent();
+        $queueRecord    = array();
+        $cookie_id      = $predictionHelper->getUniqueId();
 
         // Grab products from the observer
+        try { //If the customer is logged in
+            if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+                $customerData = Mage::getSingleton('customer/session')->getCustomer();
+                $queueRecord['customer_id'] = $customerData->getId();
+            }
+
+            // If there is a cookie present
+            if (isset($cookie_id)) {
+                $queueRecord['cookie_id'] = $cookie_id;
+            } else {
+                $cookie = Mage::getSingleton('core/cookie');
+                $uniqueCode = $predictionHelper->generateUniqueId();
+
+                $cookie->set("predictions_unid", $uniqueCode);
+
+                $queueRecord['cookie_id'] = $uniqueCode;
+            }
+
+            // Grab product list from the observer
+            $order      = $event->getOrder();
+            $orderItems = $order->getAllItems();
+
+            foreach($orderItems as $item)
+            {
+                $queueRecord['product_id'] = $item->getSku();
+                $this->_addEventToQueue($queueRecord, 'convert');
+            }
+
+        } catch (Exception $e) {
+            Mage::logException($e);
+        }
+
     }
 
     /**
@@ -105,9 +141,42 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
     public function addToCart($observer)
     {
 
-        $event = $observer->getEvent();
+        $predictionHelper = Mage::helper('predictions');
+
+        $event          = $observer->getEvent();
+        $queueRecord    = array();
+        $cookie_id      = $predictionHelper->getUniqueId();
 
         // Grab product from the observer
+
+        try { //If the customer is logged in
+            if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+                $customerData = Mage::getSingleton('customer/session')->getCustomer();
+                $queueRecord['customer_id'] = $customerData->getId();
+            }
+
+            // If there is a cookie present
+            if (isset($cookie_id)) {
+                $queueRecord['cookie_id'] = $cookie_id;
+            } else {
+                $cookie = Mage::getSingleton('core/cookie');
+                $uniqueCode = $predictionHelper->generateUniqueId();
+
+                $cookie->set("predictions_unid", $uniqueCode);
+
+                $queueRecord['cookie_id'] = $uniqueCode;
+            }
+
+            // Grab product from the observer
+            $product = $event->getProduct();
+
+            $queueRecord['product_id'] = $product->getSku();
+
+            $this->_addEventToQueue($queueRecord, 'like');
+        } catch (Exception $e) {
+            Mage::logException($e);
+        }
+
     }
 
     /**
