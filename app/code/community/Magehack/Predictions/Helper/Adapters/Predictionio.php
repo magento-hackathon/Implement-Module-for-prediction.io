@@ -4,7 +4,7 @@ class Magehack_Predictions_Helper_Adapters_Predictionio implements Magehack_Pred
 
     public function __construct() {
         require_once(Mage::getBaseDir('lib') . '/Predictions/PredictionIOSDK.php');
-        $this->sdk = new PredictionsIOSDK(Mage::helper('predictions')->getBaseUri(), Mage::helper('predictions')->getApiKey());
+        $this->sdk = new PredictionsIOSDK(Mage::helper('predictions')->getPredictionIOBaseUri(), Mage::helper('predictions')->getPredictionIOApiKey());
     }
 
     /**
