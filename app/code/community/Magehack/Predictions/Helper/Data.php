@@ -15,7 +15,7 @@ class Magehack_Predictions_Helper_Data extends Mage_Core_Helper_Abstract
 
     public function getPredictionEngine() {
         $engineAdapterName = strtolower(Mage::getStoreConfig(self::XML_PATH_PREDICTIONS_ENGINE));
-        return Mage::helper('predictions/adapters/' . $engineAdapterName);
+        return Mage::helper('predictions/adapters_' . $engineAdapterName);
     }
 
     public function canOverrideRelatedProducts()
