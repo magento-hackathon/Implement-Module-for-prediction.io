@@ -12,6 +12,10 @@ This extensions attempts to replace the Magento product recommendations ( relate
 - Stored History for not logged in Customers 
 - Cron to Update and merge the history 
 
+To be discussed:
+- Keep track of whether a user/product has been created in the predicitons engine yet.
+- Flush local data when changing predictions engines (along with some sort of warning?)
+
 #### Prediction.io
 
 PredictionIO is an open source machine learning server for software developers to create predictive features, such as personalization, recommendation and content discovery.
