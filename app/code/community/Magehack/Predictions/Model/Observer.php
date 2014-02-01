@@ -13,6 +13,8 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
      * Generic Create event function to be used by all the events
      *
      * @param $data
+     * @param null $action
+     * @throws
      * @internal param $eventData
      * @internal param $event
      * @internal param $observer
@@ -21,8 +23,21 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
     {
         $queue = Mage::getModel('predictions/queue');
 
-        // Parse EventData into the model and save
+        try { // Parse EventData into the model and save
+            if (isset($data)) {
+                $queue->setData($data);
 
+                if (!is_null($action)) {
+                    $queue->setEventType($action);
+                } else {
+                    throw Mage::exception('Magehack_Predictions', Mage::helper('predictions')->__('Missing Action type.'));
+                }
+
+                $queue->save();
+            }
+        } catch (Exception $e) {
+            Mage::logException($e);
+        }
     }
 
     /**
