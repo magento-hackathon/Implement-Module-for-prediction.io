@@ -2,6 +2,11 @@
 
 This extensions attempts to replace the Magento product recommendations ( related, upsell, crossells ) with a new PredictionIO based recommendation engine. 
 
+    This extension will cause issues on 32 bit systems due to lower integer limits.
+    Both your PredictionsIO and your PHP installation must be 64 bit.
+
+
+
 ## Functional Requirements 
 
 - Ability to enable/disable the prediction.io functionality.
