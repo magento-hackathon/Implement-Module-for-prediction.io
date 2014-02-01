@@ -130,6 +130,13 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
 
         try {
             // Grab product from the observer
+
+            //If the customer is logged in
+            if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+                $customerData = Mage::getSingleton('customer/session')->getCustomer();
+                $queueRecord['customer_id'] = $customerData->getId();
+            }
+
             $product = $event->getProduct();
 
             $queueRecord['product_id'] = $product->getId();
