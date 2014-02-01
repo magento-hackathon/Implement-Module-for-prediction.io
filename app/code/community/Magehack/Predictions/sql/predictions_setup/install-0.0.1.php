@@ -13,7 +13,7 @@ $table = $installer->getConnection()
         'primary'   => true
     ), 'Queue ID')
     ->addColumn('cookie_id', Varien_Db_Ddl_Table::TYPE_VARCHAR, 20, array (
-        'nullable'  => true
+        'nullable'  => false
     ), 'Queue Cookie ID')
     ->addColumn('customer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array (
         'nullable'  => true,
@@ -25,6 +25,10 @@ $table = $installer->getConnection()
     ->addColumn('event_type', Varien_Db_Ddl_Table::TYPE_VARCHAR, 10, array (
         'nullable'  => false
     ), 'Queue Event Type')
+    ->addColumn('cookie_processed', Varien_Db_Ddl_Table::TYPE_BOOLEAN, null, array (
+        'nullable'  => false,
+        'default'   => false
+    ), 'Queue - Has the cookie_id data been pushed to the predictions engine?')
     ->addIndex($installer->getIdxName('predictions/queue', array('cookie_id')), array('cookie_id'));
 
 $installer->getConnection()->createTable($table);
