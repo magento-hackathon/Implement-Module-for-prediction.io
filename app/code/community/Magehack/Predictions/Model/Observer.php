@@ -9,8 +9,6 @@
 class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
 {
 
-   const XML_PATH_COOKIE_DOMAIN = 'web/cookie/cookie_domain';
-
     /**
      * Generic Create event function to be used by all the events
      *
