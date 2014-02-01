@@ -23,6 +23,7 @@ class Magehack_Predictions_Model_Queue extends Mage_Core_Model_Abstract
         return $this->_engineInstance;
     }
 
+    // [todo] - Move into a separate cron class
     protected function _processTask($task)
     {
         $engine = $this->getPredictionEngine();
@@ -81,8 +82,10 @@ class Magehack_Predictions_Model_Queue extends Mage_Core_Model_Abstract
         return true;
     }
 
+    // [todo] - This code should be moved into a separate cron class
     public function process(Mage_Cron_Model_Schedule $schedule = null)
     {
+        // [todo] - Refactor this code there is no need for doing the join
         /* customer_id IS NULL AND matching record with customer_id IS NOT NULL found */
         $queueCollection = Mage::getModel('predictions/queue')->getCollection()
             ->addFieldToFilter('main_table.customer_id', array('null' => true))
@@ -93,14 +96,17 @@ class Magehack_Predictions_Model_Queue extends Mage_Core_Model_Abstract
 
         $collections[] = $queueCollection;
 
+        // [todo] - Move into a separate cron job
         /* customer_id IS NOT NULL */
         $collections[] = Mage::getModel('predictions/queue')->getCollection()
             ->addFieldToFilter('customer_id', array('notnull' => true));
 
+        // [todo] - Move into a separate cron job
         /* cookie_processed = 0 */
         $collections[] = Mage::getModel('predictions/queue')->getCollection()
             ->addFieldToFilter('cookie_processed', array('eq' => 0));
 
+        // [todo] - Use an iterator(s) here since nested foreachs doesn't necessarily makes sense
         foreach($collections as $coll)
             foreach ($coll as $task)
                 $this->_processTask($task);
