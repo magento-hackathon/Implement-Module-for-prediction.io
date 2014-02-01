@@ -88,7 +88,7 @@ class PredictionIOSDK {
 
     // [todo] add documentation
     public function getRecommendations($user_id,$engineName) {
-        return json_decode($this->apiCall('engines/itemrec/' . $engineName . '/topn.json', 'GET', array('pio_uid' => $user_id, 'pio_n' => 50)));
+        return $this->apiCall('engines/itemrec/' . $engineName . '/topn.json', 'GET', array('pio_uid' => $user_id, 'pio_n' => 50));
     }
 
     /**
