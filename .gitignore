@@ -45,7 +45,6 @@ app/etc/local.xml
 app/.htaccess
 app/locale/
 app/Mage.php
-cron.php
 cron.sh
 downloader/
 errors/
