@@ -40,7 +40,7 @@ interface Magehack_Predictions_Helper_Adapters_Interface {
     /**
      * Called when a product is returned
      *
-     * @TODO: This method is never called, should add EE returns support.
+     * [todo] - This method is never called, should add EE returns support.
      *
      * @param int Magento customer id or cookie id
      * @param int Magento product id
