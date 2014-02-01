@@ -70,4 +70,10 @@ class Magehack_Predictions_Helper_Adapters_Predictionio implements Magehack_Pred
     public function createItem($item_identifier) {
         $this->sdk->addItem($item_identifier, 'product');
     }
+
+    public function getRecommendations($user_identifier) {
+        // [todo] replace products with the engine name from config
+        $recs = $this->sdk->getRecommendations($user_identifier, Mage::helper('predictions')->getPredictionIOEngineName());
+        return $recs->pio_iids;
+    }
 }

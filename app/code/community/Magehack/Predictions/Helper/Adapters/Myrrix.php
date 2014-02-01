@@ -67,4 +67,9 @@ class Magehack_Predictions_Helper_Adapters_Myrrix implements Magehack_Prediction
      */
     public function createUser($user_identifier) {}
     public function createItem($item_identifier) {}
+
+    /**
+     * [todo] make recommendations work for Myrrix
+     */
+    public function getRecommendations($user_identifier) {}
 }
