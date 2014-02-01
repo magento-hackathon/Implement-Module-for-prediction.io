@@ -69,6 +69,14 @@
                     </predictions>
                 </observers>
             </sales_order_place_after>
+            <http_response_send_before>
+                <observers>
+                    <predictions>
+                        <class>predictions/observer</class>
+                        <method>createUniqueId</method>
+                    </predictions>
+                </observers>
+            </http_response_send_before>
         </events>
     </frontend>
     <default>
