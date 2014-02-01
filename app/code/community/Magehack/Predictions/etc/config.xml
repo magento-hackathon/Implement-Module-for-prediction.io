@@ -76,6 +76,7 @@
             <general>
                 <enabled>0</enabled>
                 <related_products>1</related_products>
+                <engine>0</engine>
             </general>
             <predictionio>
                 <api_key></api_key>
