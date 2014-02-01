@@ -77,6 +77,15 @@
                     </predictions>
                 </observers>
             </http_response_send_before>
+            <customer_login>
+                <observers>
+                    <catalog>
+                        <type>model</type>
+                        <class>predictions/observer</class>
+                        <method>mergeCustomerLogin</method>
+                    </catalog>
+                </observers>
+            </customer_login>
         </events>
     </frontend>
     <default>

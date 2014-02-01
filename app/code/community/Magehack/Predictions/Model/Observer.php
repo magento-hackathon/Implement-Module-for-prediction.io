@@ -55,13 +55,17 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
         $cookie_id      = $predictionHelper->getUniqueId();
 
 
-        try { //If the customer is logged in
+        try {
+
+            //If the customer is logged in
             if (Mage::getSingleton('customer/session')->isLoggedIn()) {
                 $customerData = Mage::getSingleton('customer/session')->getCustomer();
                 $queueRecord['customer_id'] = $customerData->getId();
             }
 
             // If there is a cookie present
+            // TODO: Refactor this code to be in a single function
+
             if (isset($cookie_id)) {
                 $queueRecord['cookie_id'] = $cookie_id;
             } else {
@@ -99,13 +103,17 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
         $cookie_id      = $predictionHelper->getUniqueId();
 
         // Grab products from the observer
-        try { //If the customer is logged in
+        try {
+
+            //If the customer is logged in
             if (Mage::getSingleton('customer/session')->isLoggedIn()) {
                 $customerData = Mage::getSingleton('customer/session')->getCustomer();
                 $queueRecord['customer_id'] = $customerData->getId();
             }
 
             // If there is a cookie present
+            // TODO: Refactor this code to be in a single function
+
             if (isset($cookie_id)) {
                 $queueRecord['cookie_id'] = $cookie_id;
             } else {
@@ -149,13 +157,17 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
 
         // Grab product from the observer
 
-        try { //If the customer is logged in
+        try {
+
+            //If the customer is logged in
             if (Mage::getSingleton('customer/session')->isLoggedIn()) {
                 $customerData = Mage::getSingleton('customer/session')->getCustomer();
                 $queueRecord['customer_id'] = $customerData->getId();
             }
 
             // If there is a cookie present
+            // TODO: Refactor this code to be in a single function
+
             if (isset($cookie_id)) {
                 $queueRecord['cookie_id'] = $cookie_id;
             } else {
@@ -176,7 +188,55 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
         } catch (Exception $e) {
             Mage::logException($e);
         }
+    }
 
+    public function mergeCustomerLogin($observer)
+    {
+        $predictionHelper = Mage::helper('predictions');
+
+        // Get Customer from the observer
+        $customer   = $observer->getEvent()->getCustomer();
+        $cookie_id  = $predictionHelper->getUniqueId();
+
+        // Check if there is cookie id, if NOT set it
+        // TODO: Refactor this code to be in a single function
+        if (isset($cookie_id)) {
+            $queueRecord['cookie_id'] = $cookie_id;
+        } else {
+            $cookie = Mage::getSingleton('core/cookie');
+            $uniqueCode = $predictionHelper->generateUniqueId();
+
+            $cookie->set("predictions_unid", $uniqueCode);
+
+            $queueRecord['cookie_id'] = $uniqueCode;
+        }
+
+        // Get a Collection of events that that have the same cookie but not the customer id
+
+        $queueCollection = Mage::getModel('precision/queue')
+            ->getCollection()
+            ->addFieldToFilter('customer_id', array('null' => true))
+            ->addFieldToFilter('cookie_id', array('eq' => $cookie_id));
+
+
+        // Use an iterator for  updating the events with the customer id
+        //TODO: Test for performance
+        Mage::getSingleton('core/resource_iterator')->walk(
+            $queueCollection->getSelect(),
+            array(array($this, 'queueCallback')),
+            array('customer_id' => $customer->getId())
+        );
+
+    }
+
+    public function queueCallback($args)
+    {
+        //TODO: Test for correct implementation
+        $_queueEvent = Mage::getModel('predictions/queue');
+
+        $_queueEvent->setData($args['rows']);
+        $_queueEvent->setCustomerId($args['customer_id']);
+        $_queueEvent->save();
     }
 
     /**
