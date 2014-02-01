@@ -48,7 +48,12 @@ class Magehack_Predictions_Model_Cron
 
         foreach($recommendFor as $uid)
         {
-            $recommendations = $predictionEngine->getRecommendations($uid);
+            try {
+                $recommendations = $predictionEngine->getRecommendations($uid);
+                Mage::log($recommendations);
+            } catch (Exception $e) {
+                Mage::logException($e);
+            }
         }
     }
 
