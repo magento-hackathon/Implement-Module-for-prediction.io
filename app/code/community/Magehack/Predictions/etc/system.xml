@@ -79,6 +79,79 @@
                         </base_uri>
                     </fields>
                 </predictionio>
+                <myrrix translate="label">
+                    <label>Myrrix</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>300</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <username translate="label comment">
+                            <label>Username</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                        </username>
+                        <password translate="label comment">
+                            <label>Password</label>
+                            <frontend_type>password</frontend_type>
+                            <sort_order>200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                        </password>
+                        <base_uri translate="label comment">
+                            <label>API Base URI</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>300</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>E.g. http://yourhost/</comment>
+                        </base_uri>
+                        <view_points translate="label comment">
+                            <label>View Points</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>400</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Points assigned to the view action.</comment>
+                        </view_points>
+                        <addtocart_points translate="label comment">
+                            <label>Add To Cart Points</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>500</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Points assigned to the add to cart action.</comment>
+                        </addtocart_points>
+                        <addtowishlist_points translate="label comment">
+                            <label>Add To Wishlist Points</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>600</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Points assigned to the add to wishlist action.</comment>
+                        </addtowishlist_points>
+                        <order_points translate="label comment">
+                            <label>Order Points</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>700</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Points assigned to the order action.</comment>
+                        </order_points>
+                    </fields>
+                </myrrix>
             </groups>
         </predictions>
     </sections>
