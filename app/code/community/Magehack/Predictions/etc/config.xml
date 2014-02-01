@@ -5,5 +5,28 @@
             <version>0.0.1</version>
         </Magehack_Predictions>
     </modules>
+    <global>
+        <models>
+            <predictions>
+                <class>Magehack_Predictions_Model</class>
+                <resourceModel>predictions_resource</resourceModel>
+            </predictions>
+            <predictions_resource>
+                <class>Magehack_Predictions_Model_Resource</class>
+                <entities>
+                    <queue>
+                        <table>predictions_queue</table>
+                    </queue>
+                </entities>
+            </predictions_resource>
+        </models>
+        <resources>
+            <predictions_setup>
+                <setup>
+                    <module>Magehack_Predictions</module>
+                </setup>
+            </predictions_setup>
+        </resources>
+    </global>
 </config>
 
