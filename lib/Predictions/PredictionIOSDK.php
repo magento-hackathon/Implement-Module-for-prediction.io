@@ -140,6 +140,7 @@ class PredictionIOSDK {
         if ($response->isSuccessful()) {
             return json_decode($response->getBody());
         } else {
+            Mage::log($response);
             throw new Exception('Request failed');
         }
 
