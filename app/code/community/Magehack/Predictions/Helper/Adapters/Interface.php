@@ -50,7 +50,10 @@ interface Magehack_Predictions_Helper_Adapters_Interface {
      */
     public function productReturn($user_identifier, $product_id);
 
-
+    // [todo] proper documentation for methods below
     public function createUser($user_identifier);
     public function createItem($item_identifier);
+
+
+    public function getRecommendations($user_identifier);
 }

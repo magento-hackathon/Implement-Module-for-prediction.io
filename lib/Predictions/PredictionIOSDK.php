@@ -86,6 +86,10 @@ class PredictionIOSDK {
         $this->itemAction($user_id, $item_id, 'conversion');
     }
 
+    // [todo] add documentation
+    public function getRecommendations($user_id,$engineName) {
+        return json_decode($this->apiCall('engines/itemrec/ ' . $engineName . '/topn.json', 'GET', array('pio_uid' => $user_id, 'pio_n' => 50)));
+    }
 
     /**
      * Record an item action.
@@ -96,7 +100,7 @@ class PredictionIOSDK {
      * @return null
      */
     protected function itemAction($user_id, $item_id, $action) {
-        $this->apiCall('actions/u2i.json', 'POST', array('pio_uid' => $user_id, 'pio_iid' => $item_id, 'pio_action' => $action));
+         $this->apiCall('actions/u2i.json', 'POST', array('pio_uid' => $user_id, 'pio_iid' => $item_id, 'pio_action' => $action));
     }
 
     /**
