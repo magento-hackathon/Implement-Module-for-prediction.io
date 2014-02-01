@@ -28,6 +28,7 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
     public function viewProduct($observer)
     {
 
+
     }
 
     /**
@@ -48,6 +49,24 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
     public function addToCart($observer)
     {
 
+    }
+
+    /**
+     * Triggered on http_response_send_before
+     *
+     * @param
+     */
+    public function createUniqueId()
+    {
+
+        $cookie = Mage::getSingleton('core/cookie');
+        $cookieName = "predictions_unid";
+        if(!$cookie->get($cookieName)) {
+            list($usec, $sec) = explode(" ", microtime());
+            $uniqueCode = intval($usec * 100000) . rand(1, 1000000000);
+            $cookie->set($cookieName, $uniqueCode);
+
+        }
     }
 
 
