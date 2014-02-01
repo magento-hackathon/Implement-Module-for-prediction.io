@@ -13,6 +13,7 @@ class Magehack_Predictions_Block_Catalog_Product_List_Related extends Mage_Catal
         /* Retrieve related product ids here. */
         $predictionioIds = array(16, 17, 18, 19, 20, 21, 22, 23, 30, 31, 32);
 
+        // [review] - Review the logic for loading the product collection for this block
         $this->_itemCollection = Mage::getModel('catalog/product')->getCollection()
             ->addAttributeToFilter('entity_id',  array('in' => $predictionioIds))
             ->addAttributeToSelect('required_options')
