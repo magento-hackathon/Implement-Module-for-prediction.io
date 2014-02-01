@@ -27,7 +27,7 @@ $table = $installer->getConnection()
     ), 'Queue Event Type')
     ->addColumn('cookie_processed', Varien_Db_Ddl_Table::TYPE_BOOLEAN, null, array (
         'nullable'  => false,
-        'default'   => false
+        'default'   => 0
     ), 'Queue - Has the cookie_id data been pushed to the predictions engine?')
     ->addIndex($installer->getIdxName('predictions/queue', array('cookie_id')), array('cookie_id'));
 
