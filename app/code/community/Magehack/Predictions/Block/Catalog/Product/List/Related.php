@@ -13,17 +13,17 @@ class Magehack_Predictions_Block_Catalog_Product_List_Related extends Mage_Catal
         $predictionHelper   = Mage::helper('predictions');
         $cookieId           = $predictionHelper->getCurrentUserUniqueId();
 
-        $recommendationCollection = Mage::getModel('predictions/recommendations')
+        $recommendationCollection = Mage::getModel('predictions/recommendation')
             ->getCollection()
             ->addFieldToFilter('cookie_id', array('eq' => $cookieId));
+
 
         if (Mage::getSingleton('customer/session')->isLoggedIn()) {
             $customerData = Mage::getSingleton('customer/session')->getCustomer();
             $recommendationCollection->addFieldToFilter('customer_id', array('eq' => $customerData->getId()));
         }
 
-
-        $predictionioIds = array(16, 17, 18, 19, 20, 21, 22, 23, 30, 31, 32);
+        $predictionioIds = $recommendationCollection->getColumnValues('product_id');
 
         // [review] - Review the logic for loading the product collection for this block
         $this->_itemCollection = Mage::getModel('catalog/product')->getCollection()
@@ -37,7 +37,6 @@ class Magehack_Predictions_Block_Catalog_Product_List_Related extends Mage_Catal
             );
             $this->_addProductAttributesAndPrices($this->_itemCollection);
         }
-
 
         Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($this->_itemCollection);
 
