@@ -5,7 +5,7 @@ This extensions attempts to replace the Magento product recommendations ( relate
 ## Functional Requirements 
 
 - Ability to enable/disable the prediction.io functionality.
-- Ability to switch between Prediction.io algorithms between. 
+- Ability to switch between Prediction.io algorithms.
 - Ability to replace Related products recommendations. 
 - Accessible classes for extending 
 - Clean implementation of the prediction.io SDK
