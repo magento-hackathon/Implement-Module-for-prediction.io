@@ -12,11 +12,15 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
     /**
      * Generic Create event function to be used by all the events
      *
-     * @param $event
+     * @param $eventData
+     * @internal param $event
      * @internal param $observer
      */
-    protected function _createEvent($event)
+    protected function _createEvent($eventData)
     {
+        $event = Mage::getModel('predictions/queue');
+
+        // Parse EventData into the model and save
 
     }
 
@@ -28,6 +32,7 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
     public function viewProduct($observer)
     {
 
+        // Grab product from the observer
     }
 
     /**
@@ -37,7 +42,7 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
      */
     public function createOrder($observer)
     {
-
+        // Grab products from the observer
     }
 
     /**
@@ -47,7 +52,7 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
      */
     public function addToCart($observer)
     {
-
+        // Grab product from the observer
     }
 
 
