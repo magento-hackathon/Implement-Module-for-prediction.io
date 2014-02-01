@@ -50,7 +50,18 @@ class Magehack_Predictions_Model_Cron
         {
             try {
                 $recommendations = $predictionEngine->getRecommendations($uid);
-                Mage::log($recommendations);
+
+
+                // [todo] - Refactor this asap, terrible code hacked together to make it work
+                foreach($recommendations as $key => $value) {
+                    $rec = Mage::getModel('predictions/recommendation');
+
+                    $rec->setCookieId($uid);
+                    $rec->setProductId($value);
+
+                    $rec->save();
+                }
+
             } catch (Exception $e) {
                 Mage::logException($e);
             }

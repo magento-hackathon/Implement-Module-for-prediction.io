@@ -17,11 +17,11 @@ class Magehack_Predictions_Block_Catalog_Product_List_Related extends Mage_Catal
             ->getCollection()
             ->addFieldToFilter('cookie_id', array('eq' => $cookieId));
 
-
-        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
-            $customerData = Mage::getSingleton('customer/session')->getCustomer();
-            $recommendationCollection->addFieldToFilter('customer_id', array('eq' => $customerData->getId()));
-        }
+        // [todo] - Remove when refactored to single id
+//        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+//            $customerData = Mage::getSingleton('customer/session')->getCustomer();
+//            $recommendationCollection->addFieldToFilter('customer_id', array('eq' => $customerData->getId()));
+//        }
 
         $predictionioIds = $recommendationCollection->getColumnValues('product_id');
 
