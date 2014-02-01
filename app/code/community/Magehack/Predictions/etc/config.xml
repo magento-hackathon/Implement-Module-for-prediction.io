@@ -52,11 +52,13 @@
     </frontend>
     <default>
         <predictions>
-            <predictionio>
+            <general>
                 <enabled>0</enabled>
-                <apikey></apikey>
-                <baseuri></baseuri>
-                <algorithm></algorithm>
+                <related_products>1</related_products>
+            </general>
+            <predictionio>
+                <api_key></api_key>
+                <base_uri></base_uri>
             </predictionio>
         </predictions>
     </default>
