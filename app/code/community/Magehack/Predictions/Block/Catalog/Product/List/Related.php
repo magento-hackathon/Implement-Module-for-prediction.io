@@ -17,6 +17,9 @@ class Magehack_Predictions_Block_Catalog_Product_List_Related extends Mage_Catal
             ->getCollection()
             ->addFieldToFilter('cookie_id', array('eq' => $cookieId));
 
+        // [todo] - Add a collection limit thorugh configuration  
+
+
         // [todo] - Remove when refactored to single id
 //        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
 //            $customerData = Mage::getSingleton('customer/session')->getCustomer();
