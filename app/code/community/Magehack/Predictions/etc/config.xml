@@ -69,6 +69,14 @@
                     </predictions>
                 </observers>
             </sales_order_place_after>
+            <http_response_send_before>
+                <observers>
+                    <predictions>
+                        <class>predictions/observer</class>
+                        <method>createUniqueId</method>
+                    </predictions>
+                </observers>
+            </http_response_send_before>
         </events>
     </frontend>
     <default>
@@ -82,6 +90,15 @@
                 <api_key></api_key>
                 <base_uri></base_uri>
             </predictionio>
+            <myrrix>
+                <username></username>
+                <password></password>
+                <base_uri></base_uri>
+                <view_points>1</view_points>
+                <addtocart_points>15</addtocart_points>
+                <addtowishlist_points>10</addtowishlist_points>
+                <order_points>100</order_points>
+            </myrrix>
         </predictions>
     </default>
     <crontab>
