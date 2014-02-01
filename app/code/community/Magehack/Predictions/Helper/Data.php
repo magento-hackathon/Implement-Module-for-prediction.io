@@ -21,8 +21,8 @@ class Magehack_Predictions_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     public function getPredictionEngine() {
-        $engineAdapterName = strtolower(Mage::getStoreConfigFlag(self::XML_PATH_PREDICTIONS_ENGINE));
-        return Mage::helper('predictions/adapters/' . $engineAdapterName);
+        $engineAdapterName = strtolower(Mage::getStoreConfig(self::XML_PATH_PREDICTIONS_ENGINE));
+        return Mage::helper('predictions/adapters_' . $engineAdapterName);
     }
 
     public function canOverrideRelatedProducts()
@@ -63,5 +63,17 @@ class Magehack_Predictions_Helper_Data extends Mage_Core_Helper_Abstract
     public function getMyrrixOrderPoints()
     {
         return Mage::getStoreConfig(self::XML_PATH_PREDICTIONS_MYRRIX_ORDER_POINTS);
+    }
+    
+    public function getUniqueId() {
+        return Mage::getSingleton('core/cookie')->get('predictions_unid');
+    }
+
+    public function generateUniqueId()
+    {
+        list($usec, $sec) = explode(" ", microtime());
+        $uniqueCode = intval($usec * 100000) . rand(1, 1000000000);
+
+        return $uniqueCode;
     }
 }

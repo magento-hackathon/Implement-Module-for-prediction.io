@@ -54,7 +54,7 @@ class Magehack_Predictions_Helper_Adapters_Predictionio implements Magehack_Pred
     /**
      * Notify PredictionsIO of a return.
      *
-     * @TODO: This method is never called, should add EE support.
+     * [todo] - This method is never called, should add EE support.
      *
      * @param int Magento customer id or cookie id.
      * @param int Magento product id.

@@ -69,6 +69,23 @@
                     </predictions>
                 </observers>
             </sales_order_place_after>
+            <http_response_send_before>
+                <observers>
+                    <predictions>
+                        <class>predictions/observer</class>
+                        <method>createUniqueId</method>
+                    </predictions>
+                </observers>
+            </http_response_send_before>
+            <customer_login>
+                <observers>
+                    <catalog>
+                        <type>model</type>
+                        <class>predictions/observer</class>
+                        <method>mergeCustomerLogin</method>
+                    </catalog>
+                </observers>
+            </customer_login>
         </events>
     </frontend>
     <default>
@@ -93,5 +110,17 @@
             </myrrix>
         </predictions>
     </default>
+    <crontab>
+        <jobs>
+            <predictions_queue_process>
+                <schedule>
+                    <cron_expr>*/15 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>predictions/queue::process</model>
+                </run>
+            </predictions_queue_process>
+        </jobs>
+    </crontab>
 </config>
 

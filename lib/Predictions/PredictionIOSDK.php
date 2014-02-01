@@ -17,7 +17,7 @@ class PredictionIOSDK {
      * @param string Unique identifier for the user being created
      * @return null
      */
-    public function addUser($user_id) {
+    public function addUser($uid) {
         $this->apiCall('users.json', 'POST', array('pio_uid' => $uid));
     }
 
