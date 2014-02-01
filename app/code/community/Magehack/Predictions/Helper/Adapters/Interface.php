@@ -1,6 +1,8 @@
 <?php
+/**
+ * @todo add support for batch processing of training data on supported engines
+ */
 interface Magehack_Predictions_Helper_Adapters_Interface {
-
     /**
      * Called when a product is added to the cart in Magento.
      *
