@@ -61,4 +61,10 @@ class Magehack_Predictions_Helper_Adapters_Myrrix implements Magehack_Prediction
      * @return null
      */
     public function productReturn($user_identifier, $product_id) {}
+
+    /**
+     * Myrrix doesn't require us to create users or items ahead of time.
+     */
+    public function createUser($user_identifier) {}
+    public function createItem($item_identifier) {}
 }
