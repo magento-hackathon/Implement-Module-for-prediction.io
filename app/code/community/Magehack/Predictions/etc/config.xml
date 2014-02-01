@@ -16,8 +16,10 @@
                 <entities>
                     <queue>
                         <table>predictions_queue</table>
-                        <table>predictions_recommendation</table>
                     </queue>
+                    <recommendation>
+                        <table>predictions_recommendation</table>
+                    </recommendation>
                 </entities>
             </predictions_resource>
         </models>
