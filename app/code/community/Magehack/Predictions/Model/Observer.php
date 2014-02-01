@@ -64,7 +64,7 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
             }
 
             // If there is a cookie present
-            // TODO: Refactor this code to be in a single function
+            // [todo] - Refactor this code to be in a single function
 
             if (isset($cookie_id)) {
                 $queueRecord['cookie_id'] = $cookie_id;
@@ -112,7 +112,7 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
             }
 
             // If there is a cookie present
-            // TODO: Refactor this code to be in a single function
+            // [todo] - Refactor this code to be in a single function
 
             if (isset($cookie_id)) {
                 $queueRecord['cookie_id'] = $cookie_id;
@@ -166,7 +166,7 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
             }
 
             // If there is a cookie present
-            // TODO: Refactor this code to be in a single function
+            // [todo] - Refactor this code to be in a single function
 
             if (isset($cookie_id)) {
                 $queueRecord['cookie_id'] = $cookie_id;
@@ -199,7 +199,7 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
         $cookie_id  = $predictionHelper->getUniqueId();
 
         // Check if there is cookie id, if NOT set it
-        // TODO: Refactor this code to be in a single function
+        // [todo] - Refactor this code to be in a single function
         if (isset($cookie_id)) {
             $queueRecord['cookie_id'] = $cookie_id;
         } else {
@@ -220,7 +220,7 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
 
 
         // Use an iterator for  updating the events with the customer id
-        //TODO: Test for performance
+        // [todo] - Test for performance
         Mage::getSingleton('core/resource_iterator')->walk(
             $queueCollection->getSelect(),
             array(array($this, 'queueCallback')),
@@ -231,7 +231,7 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
 
     public function queueCallback($args)
     {
-        //TODO: Test for correct implementation
+        // [todo] - Test for correct implementation
         $_queueEvent = Mage::getModel('predictions/queue');
 
         $_queueEvent->setData($args['rows']);
