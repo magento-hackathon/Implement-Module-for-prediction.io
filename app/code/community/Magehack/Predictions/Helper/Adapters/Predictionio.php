@@ -61,4 +61,13 @@ class Magehack_Predictions_Helper_Adapters_Predictionio implements Magehack_Pred
     public function productReturn($user_identifier, $product_id) {
         $this->sdk->dislikeItem($user_identifier, $product_id);
     }
+
+
+    public function createUser($user_identifier) {
+        $this->sdk->addUser($user_identifier);
+    }
+
+    public function createItem($item_identifier) {
+        $this->sdk->addItem($item_identifier, 'product');
+    }
 }
