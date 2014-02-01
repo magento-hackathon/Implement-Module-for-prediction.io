@@ -106,5 +106,3 @@ class Magehack_Predictions_Model_Queue extends Mage_Core_Model_Abstract
                 $this->_processTask($task);
     }
 }
-
-?>
