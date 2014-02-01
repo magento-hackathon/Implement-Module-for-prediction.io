@@ -78,7 +78,7 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
 
             $queueRecord['product_id'] = $product->getSku();
 
-            $this->_addEventToQueue($queueRecord, 'view');
+            $this->_addEventToQueue($queueRecord, Magehack_Predictions_Model_Queue::EVENT_TYPE_VIEW);
         } catch (Exception $e) {
             Mage::logException($e);
         }
