@@ -32,4 +32,8 @@ class Magehack_Predictions_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return Mage::getStoreConfig(self::XML_PATH_PREDICTIONS_PREDICTIONIO_BASE_URI);
     }
+
+    public function getUniqueId() {
+        return Mage::getSingleton('core/cookie')->get('predictions_unid');
+    }
 }
