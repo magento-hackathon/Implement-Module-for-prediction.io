@@ -49,7 +49,7 @@
                 <observers>
                     <predictions>
                         <class>predictions/observer</class>
-                        <method>addToCart</method>
+                        <method>viewProduct</method>
                     </predictions>
                 </observers>
             </catalog_controller_product_view>
