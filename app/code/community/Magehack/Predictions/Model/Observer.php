@@ -97,7 +97,6 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
                 $queueRecord['customer_id'] = $customerData->getId();
             }
 
-
             // Grab product list from the observer
             $order      = $event->getOrder();
             $orderItems = $order->getAllItems();
@@ -149,28 +148,32 @@ class Magehack_Predictions_Model_Observer extends Mage_Core_Model_Observer
 
     public function mergeCustomerLogin($observer)
     {
-        $predictionHelper = Mage::helper('predictions');
+        try {
+            $predictionHelper = Mage::helper('predictions');
 
-        // Get Customer from the observer
-        $customer = $observer->getEvent()->getCustomer();
+            // Get Customer from the observer
+            $customer = $observer->getEvent()->getCustomer();
 
-        // Get Unique User ID (by cookie, not Customer)
-        $queueRecord['cookie_id'] = $predictionHelper->getCurrentUserUniqueId();
+            // Get Unique User ID (by cookie, not Customer)
+            $queueRecord['cookie_id'] = $predictionHelper->getCurrentUserUniqueId();
 
-        // Get a Collection of events that that have the same cookie but not the customer id
-        $queueCollection = Mage::getModel('predictions/queue')
-            ->getCollection()
-            ->addFieldToFilter('customer_id', array('null' => true))
-            ->addFieldToFilter('cookie_id', array('eq' => $queueRecord['cookie_id']));
+            // Get a Collection of events that that have the same cookie but not the customer id
+            $queueCollection = Mage::getModel('predictions/queue')
+                ->getCollection()
+                ->addFieldToFilter('customer_id', array('null' => true))
+                ->addFieldToFilter('cookie_id', array('eq' => $queueRecord['cookie_id']));
 
 
-        // Use an iterator for  updating the events with the customer id
-        // [todo] - Test for performance
-        Mage::getSingleton('core/resource_iterator')->walk(
-            $queueCollection->getSelect(),
-            array(array($this, 'queueCallback')),
-            array('customer_id' => $customer->getId())
-        );
+            // Use an iterator for  updating the events with the customer id
+            // [todo] - Test for performance
+            Mage::getSingleton('core/resource_iterator')->walk(
+                $queueCollection->getSelect(),
+                array(array($this, 'queueCallback')),
+                array('customer_id' => $customer->getId())
+            );
+        } catch (Exception $e) {
+            Mage::logException($e);
+        }
 
     }
 
