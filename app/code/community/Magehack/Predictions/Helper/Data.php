@@ -43,7 +43,7 @@ class Magehack_Predictions_Helper_Data extends Mage_Core_Helper_Abstract
 
     public function getPredictionIOEngineName()
     {
-        return Mage::getStoreConfig(self::XML_PATH_PREDICTIONS_PREDICTIONIO_BASE_URI);
+        return Mage::getStoreConfig(self::XML_PATH_PREDICTIONS_PREDICTIONIO_ENGINE_NAME);
     }
 
     public function getMyrrixBaseUri()
