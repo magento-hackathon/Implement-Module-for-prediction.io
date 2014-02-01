@@ -88,6 +88,7 @@ class PredictionIOSDK {
 
     // [todo] add documentation
     public function getRecommendations($user_id,$engineName) {
+        Mage::log('get rec uid: ' . $user_id);
         return $this->apiCall('engines/itemrec/' . $engineName . '/topn.json', 'GET', array('pio_uid' => $user_id, 'pio_n' => 50));
     }
 
