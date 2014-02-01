@@ -49,4 +49,8 @@ interface Magehack_Predictions_Helper_Adapters_Interface {
      * @return null
      */
     public function productReturn($user_identifier, $product_id);
+
+
+    public function createUser($user_identifier);
+    public function createItem($item_identifier);
 }
