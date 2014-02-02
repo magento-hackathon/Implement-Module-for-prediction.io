@@ -88,7 +88,6 @@ class PredictionIOSDK {
 
     // [todo] add documentation
     public function getRecommendations($user_id,$engineName) {
-        Mage::log('get rec uid: ' . $user_id);
         return $this->apiCall('engines/itemrec/' . $engineName . '/topn.json', 'GET', array('pio_uid' => $user_id, 'pio_n' => 50));
     }
 
@@ -127,7 +126,6 @@ class PredictionIOSDK {
             default:
                 throw new Exception('Invalid request method');
         }
-        Mage::log($this->serverLocation . $path);
         $client = new Varien_Http_Client($this->serverLocation . $path);
         $client->setMethod($requestMethod);
 
@@ -141,7 +139,7 @@ class PredictionIOSDK {
         if ($response->isSuccessful()) {
             return json_decode($response->getBody());
         } else {
-            Mage::log($response);
+            // [todo] decide on a better way to handle this without throwing an exception
             throw new Exception('Request failed');
         }
 

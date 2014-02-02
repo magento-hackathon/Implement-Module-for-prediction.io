@@ -73,7 +73,6 @@ class Magehack_Predictions_Helper_Adapters_Predictionio implements Magehack_Pred
 
     public function getRecommendations($user_identifier) {
         // [todo] replace products with the engine name from config
-        Mage::log('adapter user identifier: '.$user_identifier);
         $recs = $this->sdk->getRecommendations($user_identifier, Mage::helper('predictions')->getPredictionIOEngineName());
         return $recs->pio_iids;
     }
