@@ -13,7 +13,7 @@ class Magehack_Predictions_Block_Catalog_Product_List_Related extends Mage_Catal
         $predictionHelper   = Mage::helper('predictions');
         $cookieId           = array($predictionHelper->getCurrentUserUniqueId());
         $customer = Mage::getSingleton('customer/session');
-        if($customer->isLoggedIn()) {
+        if($customer->isLoggedIn()){
             $cookieId[] = $customer->getId();
         }
         $recommendationCollection = Mage::getModel('predictions/recommendation')
