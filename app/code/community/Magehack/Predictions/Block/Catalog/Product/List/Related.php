@@ -11,13 +11,16 @@ class Magehack_Predictions_Block_Catalog_Product_List_Related extends Mage_Catal
 
         /* Retrieve related product ids here. */
         $predictionHelper   = Mage::helper('predictions');
-        $cookieId           = $predictionHelper->getCurrentUserUniqueId();
-
+        $cookieId           = array($predictionHelper->getCurrentUserUniqueId());
+        $customer = Mage::getSingleton('customer/session');
+        if($customer->isLoggedIn()) {
+            $cookieId[] = $customer->getId();
+        }
         $recommendationCollection = Mage::getModel('predictions/recommendation')
             ->getCollection()
-            ->addFieldToFilter('cookie_id', array('eq' => $cookieId));
+            ->addFieldToFilter('cookie_id', array('in' => $cookieId));
 
-        // [todo] - Add a collection limit thorugh configuration  
+        // [todo] - Add a collection limit thorugh configuration
 
 
         // [todo] - Remove when refactored to single id
