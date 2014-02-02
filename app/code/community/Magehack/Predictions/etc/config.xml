@@ -112,7 +112,7 @@
                     <cron_expr>*/15 * * * *</cron_expr>
                 </schedule>
                 <run>
-                    <model>predictions/queue::process</model>
+                    <model>predictions/cron::run</model>
                 </run>
             </predictions_queue_process>
         </jobs>
