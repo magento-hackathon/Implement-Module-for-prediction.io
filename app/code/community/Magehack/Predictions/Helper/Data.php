@@ -84,7 +84,6 @@ class Magehack_Predictions_Helper_Data extends Mage_Core_Helper_Abstract
     {
         list($usec, $sec) = explode(" ", microtime());
         $uniqueCode = intval($usec * 100000) . rand(1, 1000000000);
-
-        return $uniqueCode;
+        return substr($uniqueCode,0,10);
     }
 }
