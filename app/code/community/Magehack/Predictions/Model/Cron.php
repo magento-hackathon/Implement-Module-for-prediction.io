@@ -22,24 +22,20 @@ class Magehack_Predictions_Model_Cron
 
     public function run()
     {
-        $queueCollection = Mage::getModel('predictions/queue')->getCollection();
+        $queueCollection = Mage::getModel('predictions/queue')->getCollection()
+            ->addFieldToFilter('cookie_processed', array('eq' => '0'));
 
         $recommendFor = array();
         foreach($queueCollection as $task) {
-            // [todo] add this condition to the collection query
-            // if the cookie has not been processed yet and/or there is a customer id...
-            $customer_id = $task->getCustomerId();
-            if(!$task->getCookieProcessed() || $customer_id) {
-                $recommendFor[] = $task->getCookieId();
-                if($customer_id) {
-                    $recommendFor[] = $customer_id;
-                }
+            $recommendFor[] = $task->getCookieId();
+            if($task->getCustomerId()){
+                $recommendFor[] = $task->getCustomerId();
+            }
 
-                try {
-                    $this->_processTask($task);
-                } catch (Exception $e) {
-                    Mage::log($e->getMessage());
-                }
+            try {
+                $this->_processTask($task);
+            } catch (Exception $e) {
+                Mage::log($e->getMessage());
             }
         }
 
@@ -73,18 +69,15 @@ class Magehack_Predictions_Model_Cron
         $predictionEngine = $this->getPredictionEngine();
         $eventMethod = $this->_getEventMethod($task->getEventType());
 
-
-        if(!$task->getCookieProcessed()) {
-            $predictionEngine->createItem($task->getProductId());
-            $predictionEngine->createUser($task->getCookieId());
-            //if the customer id isn't set we'll need to make the update. Otherwise its getting deleted anyways.
-            if(!$task->getCustomerId()) {
-                $task->setCookieProcessed(1);
-                $task->save();
-            }
-
-            call_user_func(array($predictionEngine, $eventMethod), $task->getCookieId(), $task->getProductId());
+        $predictionEngine->createItem($task->getProductId());
+        $predictionEngine->createUser($task->getCookieId());
+        //if the customer id isn't set we'll need to make the update. Otherwise its getting deleted anyways.
+        if(!$task->getCustomerId()) {
+            $task->setCookieProcessed(1);
+            $task->save();
         }
+
+        call_user_func(array($predictionEngine, $eventMethod), $task->getCookieId(), $task->getProductId());
 
         if($task->getCustomerId()) {
             $predictionEngine->createUser($task->getCustomerId());
